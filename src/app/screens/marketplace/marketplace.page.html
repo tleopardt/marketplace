@@ -1,0 +1,60 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Marketplace</ion-title>
+    <ion-buttons slot="end" class="shopping-cart" (click)="openStash()">
+      <ion-icon name="cart-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="wrapper">
+  <div class="marketplace">
+    <div class="marketplace__header">
+      <ion-slides [options]="opts" class="marketplace__header-tabs">
+        <ion-slide *ngFor="let category of categories; let i = index;">
+          <div class="tag" value="deals" [class.active-category]="activeCategory == i" (click)="selectCategory(i)">
+            <ion-icon name="{{ category.icon }}" slot="start"></ion-icon>
+            <ion-label>{{ category.name }}</ion-label>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </div>
+    <div class="marketplace__body">
+      <ion-searchbar class="products__search" (ionChange)="handleSearch($event)" placeholder="Search for products"></ion-searchbar>
+
+      <div class="products">
+
+        <div *ngFor="let product of productList" class="products__card">
+          <img src="{{ product.image }}" alt="" (click)="openModal(product, isModalType.detailProduct)"/>
+          <div class="products__tag">
+            <label class="products__tag-title">{{ product.title }}</label>
+            <span class="products__tag-sold">{{ product.rating.count }} Items Left</span>
+            <div class="products__tag-footer">
+              <span class="products__tag-price">{{ '$' + product.price }}</span>
+              <div class="products__tag-action-button">
+                <button (click)="openModal(product, isModalType.edit)">Edit</button>
+                <button>Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="products-null" *ngIf="productList.length === 0">
+          Oops.. we didn't found any products matched!
+        </h3>
+
+      </div>
+    </div>
+    <div class="marketplace__footer">
+
+    </div>
+  </div>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button (click)="openModal('', isModalType.add)" color="danger">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

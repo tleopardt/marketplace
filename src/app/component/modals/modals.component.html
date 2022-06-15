@@ -1,0 +1,60 @@
+<ion-header class="{{ headerType }}">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ typeOf ? typeOf : 'Your Modals'}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="typeOf !== isModalType.detailProduct" class="modal">
+  <div class="modal-form__input-file">
+    <img src="{{ image }}" alt="">
+    <label position="floating" for="file">Change Thumbnail</label>
+    <input (change)="changePhoto($event)" type="file" id="file" hidden/>
+  </div>
+
+  <ion-item>
+    <ion-label position="floating">Title</ion-label>
+    <ion-input type="text" value="{{ title }}"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Price</ion-label>
+    <ion-input type="number" value="{{ price }}"></ion-input>
+  </ion-item>
+  <ion-button expand="block" class="ion-margin-top">Submit</ion-button>
+</ion-content>
+
+<ion-content *ngIf="typeOf == isModalType.detailProduct" class="modal-product">
+  <div class="wrapper">
+    <div class="modal-product__thumbnail">
+      <img src="{{ image }}" alt="">
+    </div>
+
+    <div class="modal-product__content">
+      <div class="title">
+        <h3>{{ title }}</h3>
+        <span><ion-icon name="star-sharp"></ion-icon>{{ rating.rate }}</span>
+      </div>
+      <span class="category">{{ category }}</span>
+      <div class="price-and-qty">
+        <h3>{{ '$' + price }}</h3>
+        <div class="qty">
+          <ion-icon name="remove-outline" (click)="removeQty()"></ion-icon>
+          <input value="{{ productQty }}" disabled/>
+          <ion-icon name="add-outline" (click)="addQty()"></ion-icon>
+        </div>
+      </div>
+      <div class="pull-right mt-5">
+        <button (click)="AddToCart(id)">Add to Cart</button>
+      </div>
+      <div class="description mt-40">
+        <h5>Description</h5>
+        <p class="{{ itemActive ? 'active' : '' }}" (click)="toggleActive()">{{ description }}</p>
+      </div>
+    </div>
+  </div>
+</ion-content>
+

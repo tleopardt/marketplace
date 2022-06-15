@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Stash</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="products-item" *ngFor="let product of stashList; let i = index">
+    <ion-item>
+      <img src="{{ product.image }}" />
+      <ion-label>
+        <h2>{{ product.title }}</h2>
+        <div class="price-and-qty">
+          <h3>{{ '$' + product.price }}</h3>
+          <div class="qty">
+            <ion-icon name="remove-outline" (click)="removeQty(i)"></ion-icon>
+            <input value="{{ product.quantity }}" disabled/>
+            <ion-icon name="add-outline" (click)="addQty(i)"></ion-icon>
+          </div>
+        </div>
+      </ion-label>
+    </ion-item>
+  </div>
+
+  <h3 class="products-null" *ngIf="stashList.length === 0">
+    You don't have any products to checkout
+  </h3>
+</ion-content>
+
+
+<ion-footer class="ion-no-border footer">
+  <ion-toolbar>
+    <div class="footer-pricing">
+      <label>Total</label>
+      <span>{{ '$' + total }}</span>
+    </div>
+    <ion-button color="danger" slot="end" style="padding-right: 5px;">
+      Checkout
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

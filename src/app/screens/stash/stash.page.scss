@@ -1,0 +1,18 @@
+@import '../../../theme/variables.scss';
+
+.footer {
+  &-pricing {
+    display: flex;
+    flex-direction: column;
+    padding-left: 15px;
+
+    & label {
+      font-size: 0.8em;
+    }
+
+    & span {
+      font-size: 1.3em;
+      font-weight: 550;
+    }
+  }
+}

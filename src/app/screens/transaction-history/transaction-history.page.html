@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Transaction History</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="products__transaction">
+    <ion-searchbar class="products__search t-20 w-100 mr-0 ml-0" (ionChange)="handleSearch($event)" placeholder="Search for products"></ion-searchbar>
+    <div class="products-item" *ngFor="let product of stashList; let i = index">
+      <ion-item>
+        <img src="{{ product.image }}" />
+        <ion-label>
+          <h2>{{ product.title }}</h2>
+          <div class="price-and-qty">
+            <h3>{{ '$' + product.price }}</h3>
+            <ion-text class="text-transparent text-small">{{ product.rating.count + ' items sold' }}</ion-text>
+          </div>
+        </ion-label>
+      </ion-item>
+    </div>
+  </div>
+
+  <h3 class="products-null" *ngIf="stashList.length === 0">
+    Oops.. we didn't found any history matched!
+  </h3>
+</ion-content>
